@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-blue: #2756E8;
+    --brand-blue-hover: #1e45c7;
+    --brand-blue-dark: #143296;
+    --brand-pink: #FF2E7E;
+    --brand-pink-light: #FFF0F5;
+    --brand-yellow: #FFD12F;
+    --brand-yellow-light: #FFFBEA;
+    --brand-mint: #06D6A0;
+    --brand-mint-light: #E8FAF5;
+    --brand-cream: #FFFDF9;
+    --brand-cream-subtle: #FBF7EE;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FFFDF9;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Fredoka', cursive, sans-serif;
+  }
+}
+
+/* Custom 3D Playful Tactile Buttons */
+.btn-3d {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  user-select: none;
+}
+
+.btn-3d:active {
+  transform: translateY(4px);
+  box-shadow: none !important;
+}
+
+.btn-3d-blue {
+  background-color: #2756E8;
+  color: #ffffff;
+  box-shadow: 0 5px 0 #143296;
+}
+.btn-3d-blue:hover {
+  background-color: #3665f3;
+}
+.btn-3d-blue:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #143296 !important;
+}
+
+.btn-3d-pink {
+  background-color: #FF2E7E;
+  color: #ffffff;
+  box-shadow: 0 5px 0 #c21355;
+}
+.btn-3d-pink:hover {
+  background-color: #ff478f;
+}
+.btn-3d-pink:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #c21355 !important;
+}
+
+.btn-3d-yellow {
+  background-color: #FFD12F;
+  color: #1e293b;
+  box-shadow: 0 5px 0 #d9a800;
+}
+.btn-3d-yellow:hover {
+  background-color: #ffdb4d;
+}
+.btn-3d-yellow:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #d9a800 !important;
+}
+
+.btn-3d-mint {
+  background-color: #06D6A0;
+  color: #064e3b;
+  box-shadow: 0 5px 0 #049f76;
+}
+.btn-3d-mint:hover {
+  background-color: #1ee3b0;
+}
+.btn-3d-mint:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #049f76 !important;
+}
+
+.btn-3d-white {
+  background-color: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 5px 0 #e2e8f0;
+}
+.btn-3d-white:hover {
+  background-color: #f8fafc;
+}
+.btn-3d-white:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #cbd5e1 !important;
+}
+
+/* Playful Animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.5deg);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bounceSlight {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-bounce-slight {
+  animation: bounceSlight 2.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFDF9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #FFFDF9;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Confetti & Dotted Backgrounds */
+.bg-dots {
+  background-image: radial-gradient(#2756E8 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.bg-dots-pink {
+  background-image: radial-gradient(#FF2E7E 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+.bg-grid-subtle {
+  background-size: 32px 32px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
