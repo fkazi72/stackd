@@ -9,6 +9,10 @@ export type TextLoopDirection = 'forward' | 'reverse';
 export interface TextLoopProps {
   viewBoxWidth?: number;
   viewBoxHeight?: number;
+  ribbonDepthColor?: string;
+  ribbonDepth?: number;
+  fontFamily?: string;
+  text3D?: boolean;
   text?: string;
   shape?: TextLoopShape;
   path?: string;
@@ -161,6 +165,10 @@ const inkOn = (color: string): string => {
 export const TextLoop = ({
   viewBoxWidth = 1200,
   viewBoxHeight = 180,
+  ribbonDepthColor,
+  ribbonDepth = 5,
+  fontFamily = "'Fredoka', cursive, sans-serif",
+  text3D = true,
   text = 'React ✦ Bits',
   shape = 'wave',
   path,
@@ -175,7 +183,7 @@ export const TextLoop = ({
   uppercase = true,
   color,
   ribbon = true,
-  ribbonColor = '#5227FF',
+  ribbonColor = '#FF2E7E',
   ribbonWidth = 86,
   edgeFade = 0,
   pauseOnHover = true,
@@ -193,6 +201,7 @@ export const TextLoop = ({
   const viewH = viewBoxHeight;
   const cx = viewW / 2;
   const cy = viewH / 2;
+  const depthColor = ribbonDepthColor || (ribbonColor === '#FF2E7E' || ribbonColor === '#ec4899' ? '#c21355' : '#143296');
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -201,6 +210,8 @@ export const TextLoop = ({
   const measureRef = useRef<SVGTextElement | null>(null);
   const headRef = useRef<SVGTextPathElement | null>(null);
   const tailRef = useRef<SVGTextPathElement | null>(null);
+  const shadowHeadRef = useRef<SVGTextPathElement | null>(null);
+  const shadowTailRef = useRef<SVGTextPathElement | null>(null);
   const crossHeadRef = useRef<SVGTextPathElement | null>(null);
   const crossTailRef = useRef<SVGTextPathElement | null>(null);
   const progressRef = useRef(0);
@@ -241,8 +252,13 @@ export const TextLoop = ({
   }, [text, separator, uppercase]);
 
   const textStyle = useMemo<CSSProperties>(
-    () => ({ fontSize: `${fontSize}px`, fontWeight, letterSpacing: `${letterSpacing}px` }),
-    [fontSize, fontWeight, letterSpacing]
+    () => ({
+      fontSize: `${fontSize}px`,
+      fontWeight,
+      letterSpacing: `${letterSpacing}px`,
+      fontFamily: fontFamily || "'Fredoka', cursive, sans-serif"
+    }),
+    [fontSize, fontWeight, letterSpacing, fontFamily]
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -306,6 +322,8 @@ export const TextLoop = ({
       progressRef.current = offset / length;
       head.setAttribute('startOffset', String(offset));
       tail.setAttribute('startOffset', String(offset - length));
+      if (shadowHeadRef.current) shadowHeadRef.current.setAttribute('startOffset', String(offset));
+      if (shadowTailRef.current) shadowTailRef.current.setAttribute('startOffset', String(offset - length));
       if (crossPaths) {
         const crossOffset = wrap(-travel, crossLength);
         crossPaths[0].setAttribute('startOffset', String(crossOffset));
@@ -534,16 +552,15 @@ export const TextLoop = ({
               <rect width={viewW} height={viewH} fill={`url(#${fadeId})`} />
             </mask>
           )}
-          {cross && ribbon && (
+          {ribbon && (
             <filter
               id={shadowId}
-              filterUnits="userSpaceOnUse"
-              x={-viewW}
-              y={-viewH}
-              width={viewW * 3}
-              height={viewH * 3}
+              x="-20%"
+              y="-20%"
+              width="140%"
+              height="140%"
             >
-              <feGaussianBlur stdDeviation={Math.max(4, ribbonWidth * 0.11)} />
+              <feGaussianBlur stdDeviation="3.5" />
             </filter>
           )}
           {cross && ribbon && (
@@ -636,6 +653,34 @@ export const TextLoop = ({
           )}
 
           <g transform={mainTransform}>
+            {/* 1. 3D Ambient Soft Drop Shadow */}
+            {ribbon && (
+              <path
+                d={d}
+                fill="none"
+                stroke="rgba(0, 0, 0, 0.16)"
+                strokeWidth={ribbonWidth}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transform={`translate(0 ${ribbonDepth + 4})`}
+                filter={`url(#${shadowId})`}
+              />
+            )}
+
+            {/* 2. 3D Solid Bottom Extrusion / Bevel (tactile depth) */}
+            {ribbon && (
+              <path
+                d={d}
+                fill="none"
+                stroke={depthColor}
+                strokeWidth={ribbonWidth}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transform={`translate(0 ${ribbonDepth})`}
+              />
+            )}
+
+            {/* 3. Main Ribbon Surface */}
             <path
               ref={pathRef}
               id={pathId}
@@ -647,6 +692,59 @@ export const TextLoop = ({
               strokeLinejoin="round"
             />
 
+            {/* 4. Subtle Gloss Highlight on Upper Lip for vinyl 3D shine */}
+            {ribbon && (
+              <path
+                d={d}
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.35)"
+                strokeWidth={Math.max(2, ribbonWidth * 0.1)}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                transform={`translate(0 ${-ribbonWidth * 0.32})`}
+              />
+            )}
+
+            {/* 5. 3D Embossed Text Shadow (extruded letter depth) */}
+            {text3D && (
+              <>
+                <text
+                  className="select-none"
+                  style={{
+                    ...textStyle,
+                    fill: depthColor,
+                  }}
+                  dominantBaseline="central"
+                  aria-hidden="true"
+                  textLength={fitLength}
+                  lengthAdjust="spacing"
+                  transform="translate(0 2.5)"
+                >
+                  <textPath ref={shadowHeadRef} href={`#${pathId}`} startOffset={0}>
+                    {loopText}
+                  </textPath>
+                </text>
+
+                <text
+                  className="select-none"
+                  style={{
+                    ...textStyle,
+                    fill: depthColor,
+                  }}
+                  dominantBaseline="central"
+                  aria-hidden="true"
+                  textLength={fitLength}
+                  lengthAdjust="spacing"
+                  transform="translate(0 2.5)"
+                >
+                  <textPath ref={shadowTailRef} href={`#${pathId}`} startOffset={0}>
+                    {loopText}
+                  </textPath>
+                </text>
+              </>
+            )}
+
+            {/* 6. Main Crisp White 3D Text */}
             <text
               className="select-none"
               style={textStyle}

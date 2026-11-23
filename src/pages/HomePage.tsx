@@ -146,8 +146,8 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* REACT-BITS TEXT LOOP MARQUEE (Wave Ribbon) */}
-      <section className="w-full overflow-hidden select-none -mt-6 sm:-mt-10 -mb-4 sm:-mb-6">
+      {/* REACT-BITS TEXT LOOP MARQUEE (3D Wave Ribbon) */}
+      <section className="w-full overflow-hidden select-none -mt-6 sm:-mt-10 -mb-4 sm:-mb-6 filter drop-shadow-sm">
         <TextLoop
           text="Stack'd ✦ KEEP IT STACK'd"
           shape="wave"
@@ -161,7 +161,10 @@ export const HomePage: React.FC = () => {
           letterSpacing={2}
           uppercase
           ribbon
-          ribbonColor="#ec4899"
+          ribbonColor="#FF2E7E"
+          ribbonDepthColor="#c21355"
+          ribbonDepth={5}
+          text3D
           ribbonWidth={44}
           viewBoxWidth={1200}
           viewBoxHeight={130}
