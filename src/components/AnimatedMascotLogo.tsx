@@ -21,7 +21,7 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
     setShowFinaleLogo(false);
     setCacheBuster(Date.now());
 
-    // When the continuous mascot flow finishes, trigger celebratory confetti and lock in logo
+    // When the continuous mascot flow finishes (12.5s for all 5 scenes), trigger celebration and lock in logo
     setTimeout(() => {
       try {
         confetti({
@@ -33,7 +33,7 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
       } catch {}
       setShowFinaleLogo(true);
       setIsPlayingFlow(false);
-    }, 8000);
+    }, 12500);
   };
 
   useEffect(() => {
