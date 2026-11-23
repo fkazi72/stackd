@@ -4,6 +4,7 @@ import { Star, Heart, Plus, Sparkles, Check } from 'lucide-react';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { TactileButton } from './TactileButton';
 
 interface ProductCardProps {
   product: Product;
@@ -134,12 +135,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
           <div className="flex flex-col">
             <div className="flex items-baseline space-x-1.5">
-              <span className="font-heading font-extrabold text-xl text-[#2756E8]">
-                ${product.price.toFixed(2)}
+              <span className="font-heading font-extrabold text-lg sm:text-xl text-[#2756E8]">
+                ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
                 <span className="text-xs text-slate-400 line-through">
-                  ${product.originalPrice.toFixed(2)}
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
             </div>
@@ -150,7 +151,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             )}
           </div>
 
-          <button
+          <TactileButton
+            delayMs={160}
             onClick={handleQuickAdd}
             className={`btn-3d px-3.5 py-2 rounded-2xl font-heading font-bold text-xs flex items-center space-x-1.5 shadow-sm transition-all ${
               quantityInCart > 0
@@ -170,7 +172,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <span>Stack It</span>
               </>
             )}
-          </button>
+          </TactileButton>
         </div>
       </div>
     </div>

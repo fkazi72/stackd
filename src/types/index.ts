@@ -6,7 +6,7 @@ export interface Product {
   originalPrice?: number;
   rating: number;
   reviewsCount: number;
-  category: 'blind-boxes' | 'figures' | 'plushies' | 'drinkware' | 'stationery' | 'desk-tech';
+  category: 'blind-boxes' | 'figures' | 'plushies' | 'drinkware' | 'stationery' | 'desk-tech' | 'gifting';
   categoryLabel: string;
   badge?: 'Bestseller' | 'New Drop' | 'Limited' | 'Staff Favorite' | 'Rare' | 'Hot';
   images: string[];

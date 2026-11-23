@@ -1,12 +1,225 @@
 import { Product } from '../types';
 
 export const PRODUCTS_DATA: Product[] = [
+  // 1. Gel Pens (New Stationery Feature)
+  {
+    id: 'stackd-mascot-gel-pens',
+    name: "Stack'd Mascot Pastel Gel Pen Set (8-Pack)",
+    tagline: 'Super-smooth 0.5mm pastel quick-dry pens with 3D sculpted mascot toppers!',
+    price: 449,
+    originalPrice: 599,
+    rating: 5.0,
+    reviewsCount: 168,
+    category: 'stationery',
+    categoryLabel: 'Kawaii Stationery',
+    badge: 'New Drop',
+    images: [
+      '/products/gel-pens.jpg',
+      '/mascots/mascots-group.jpg',
+      '/mascots/mascot-blue.jpg',
+    ],
+    description: `Write your dreams with silky smooth precision! The Stack'd Mascot Gel Pen Set includes 8 aesthetic pastel barrels with custom 3D sculpted clay mascot toppers (Blobby Blue, Pip Pink, Sunny Cloud, and Minty Pop). Features ultra-fast drying waterproof Japanese pigment gel ink that glides effortlessly across bullet journals and diaries without smudging or bleeding.`,
+    mascotQuote: {
+      mascot: 'Sunny Cloud',
+      quote: "My lecture notes look 1000x cuter now! Plus, the little mascot topper wobbles happily while you write.",
+      mascotAvatar: '/mascots/mascot-yellow.jpg',
+      color: '#FFD12F',
+    },
+    features: [
+      '8 soft-touch matte pastel barrels with 3D claymation mascot clips',
+      '0.5mm fine bullet nib with smooth Japanese black & blue archival gel ink',
+      'Quick-drying smudge-free formula perfect for left-handed writers',
+      'Refillable ink cartridge design with anti-fatigue silicone comfort grip',
+      'Includes collectible pastel acrylic desk presentation tray'
+    ],
+    specifications: {
+      'Pen Count': '8 Retractable Gel Ink Pens',
+      'Nib Size': '0.5 mm Ultra-Fine Bullet Tip',
+      'Ink Type': 'Quick-Dry Smudge-Resistant Gel Ink (Black & Blue)',
+      'Barrel Material': 'Soft-touch ABS with 3D PVC Mascot Sculpt',
+      'Box Dimensions': '18 x 14 x 2.5 cm'
+    },
+    inStock: true,
+    stockLeft: 24,
+    variants: [
+      {
+        name: 'Ink Shade',
+        options: [
+          { label: 'Classic Deep Black Ink', value: 'black', inStock: true },
+          { label: 'Royal Blue Ink', value: 'blue', inStock: true },
+          { label: 'Pastel Rainbow Ink Pack', value: 'rainbow', inStock: true }
+        ]
+      }
+    ],
+    isStackable: true,
+    tags: ['pens', 'gel pens', 'stationery', 'kawaii', 'school', 'study', 'journaling']
+  },
+
+  // 2. Plushie Journal Gifting Hamper (New Gifting Feature)
+  {
+    id: 'stackd-plush-journal-hamper',
+    name: "Stack'd Fluffy Plushie Diary & Gifting Hamper",
+    tagline: 'Marshmallow-soft faux-fur locking journal with gold pen & sticker sheets!',
+    price: 899,
+    originalPrice: 1199,
+    rating: 4.9,
+    reviewsCount: 142,
+    category: 'gifting',
+    categoryLabel: 'Gifting & Hampers',
+    badge: 'Bestseller',
+    images: [
+      '/products/plush-journal.jpg',
+      '/products/gel-pens.jpg',
+      '/mascots/mascot-pink.jpg',
+    ],
+    description: `The coziest gift imaginable for yourself or a bestie! This luxury gifting hamper features an ultra-plush, faux-fur journal embossed with Pip Pink's smiling face and cute little ears. Inside the gift box, you'll also find an engraved pastel brass gel pen, decorative ribbon bookmarks, 4 mascot die-cut sticker sheets, and a secret heart lock with two keys to protect your deepest thoughts.`,
+    mascotQuote: {
+      mascot: 'Pip Pink',
+      quote: "Hugging this diary while writing my daily gratitude feels like hugging a warm cloud!",
+      mascotAvatar: '/mascots/mascot-pink.jpg',
+      color: '#FF2E7E',
+    },
+    features: [
+      'Super-soft hypoallergenic cloud faux-fur cover with embroidered mascot art',
+      '192 pages of 120gsm bleed-proof bleed-resistant thick dotted/lined paper',
+      'Heart-shaped brass padlock with 2 keys for private journaling',
+      'Includes matching metallic pastel pen and mascot washi tape roll',
+      'Packaged in a gift-ready rigid pastel magnetic-close ribbon box'
+    ],
+    specifications: {
+      'Journal Size': 'A5 (14.8 x 21 cm) - 192 Acid-Free Pages',
+      'Paper Weight': '120 GSM Heavyweight Bleed-Proof Paper',
+      'Cover Material': 'Premium Spandex Cloud Plush Velvet',
+      'Gift Box': 'Rigid Keepsake Box with Satin Bow & Shredded Bedding'
+    },
+    inStock: true,
+    stockLeft: 12,
+    variants: [
+      {
+        name: 'Cover Mascot',
+        options: [
+          { label: 'Pip Pink Bunny Velvet', value: 'pip-pink', inStock: true, colorHex: '#FF2E7E' },
+          { label: 'Sunny Cloud Yellow Sherpa', value: 'sunny-yellow', inStock: true, colorHex: '#FFD12F' },
+          { label: 'Minty Pop Turquoise Plush', value: 'minty-green', inStock: true, colorHex: '#06D6A0' }
+        ]
+      }
+    ],
+    isStackable: true,
+    tags: ['diary', 'journal', 'gifting', 'hamper', 'plush journal', 'birthday gift', 'stationery']
+  },
+
+  // 3. Mega Stationery Mystery Crate (New Gifting Feature)
+  {
+    id: 'stackd-mega-stationery-crate',
+    name: "The Mega Stack'd Stationery Mystery Gift Crate",
+    tagline: 'Curated 15-piece deluxe hamper box tied with satin ribbon — ultimate unboxing!',
+    price: 1699,
+    originalPrice: 2299,
+    rating: 5.0,
+    reviewsCount: 210,
+    category: 'gifting',
+    categoryLabel: 'Gifting & Hampers',
+    badge: 'Limited',
+    images: [
+      '/products/stationery-crate.jpg',
+      '/products/gel-pens.jpg',
+      '/mascots/mascots-group.jpg',
+    ],
+    description: `The holy grail for cute stationery collectors! The Mega Stack'd Stationery Gift Crate is hand-packed with over 15 premium stationery goodies: a hardbound mascot planner, 8 pastel gel pens, 3 washi tapes, sticky memo pad stacks, mascot keychains, enamel pins, and a surprise collectible vinyl toy. Elegantly wrapped with a dual-color royal blue & bubblegum pink satin bow.`,
+    mascotQuote: {
+      mascot: 'Minty Pop',
+      quote: "Opening this box feels like your birthday and Diwali all rolled into one magical moment! 🎁✨",
+      mascotAvatar: '/mascots/mascot-mint.jpg',
+      color: '#06D6A0',
+    },
+    features: [
+      '15+ curated premium kawaii stationery goodies in one grand gift box',
+      'Includes guaranteed mystery Series 01 vinyl blind box figure',
+      'Custom handwritten calligraphy greeting card included with your order',
+      'Sturdy decorative keepsake wooden-feel crate with satin gift ribbon',
+      'Save over 35% compared to purchasing items individually'
+    ],
+    specifications: {
+      'Box Dimensions': '28 x 24 x 12 cm',
+      'Total Items': '15+ Stationery & Collectible Goodies',
+      'Packaging': 'Deluxe Rigid Gift Hamper Box with Embossed Gold Foil',
+      'Weight': '1.1 kg total'
+    },
+    inStock: true,
+    stockLeft: 8,
+    variants: [
+      {
+        name: 'Gift Theme',
+        options: [
+          { label: 'Student & Journaling Crate', value: 'student', inStock: true },
+          { label: 'Aesthetic Work Desk Crate', value: 'desk', inStock: true },
+          { label: 'Collector Toy & Pen Crate', value: 'collector', inStock: true }
+        ]
+      }
+    ],
+    isStackable: true,
+    tags: ['gift crate', 'hamper', 'stationery box', 'mystery box', 'deluxe gift', 'kawaii']
+  },
+
+  // 4. Washi Tape Tower Set (New Stationery Feature)
+  {
+    id: 'stackd-washi-tower-set',
+    name: "Stack'd 6-Piece Washi Tape Tower & Dispenser",
+    tagline: 'Stackable Japanese paper washi rolls with gold foil mascot prints & cloud cutter!',
+    price: 399,
+    originalPrice: 499,
+    rating: 4.8,
+    reviewsCount: 94,
+    category: 'stationery',
+    categoryLabel: 'Kawaii Stationery',
+    badge: 'Staff Favorite',
+    images: [
+      '/products/washi-tower.jpg',
+      '/products/gel-pens.jpg',
+      '/mascots/mascot-mint.jpg',
+    ],
+    description: `Add sparkle to your scrapbooks, study notes, and gift wrapping! This set includes 6 rolls of authentic Japanese washi tape featuring whimsical mascot doodles, geometric pastel stacks, and shining gold foil stars. The rolls stack vertically inside an interlocking cloud-shaped acrylic cutter dispenser.`,
+    mascotQuote: {
+      mascot: 'Minty Pop',
+      quote: "The gold foil shines so brightly in sunlight! They peel off cleanly without tearing delicate journal paper.",
+      mascotAvatar: '/mascots/mascot-mint.jpg',
+      color: '#06D6A0',
+    },
+    features: [
+      '6 distinct tape widths (10mm, 15mm, 20mm, 30mm) for versatile crafting',
+      'Authentic Japanese washi paper with clean residue-free repositionable adhesive',
+      'Hot-stamped holographic gold foil details on each roll',
+      'Includes cloud-shaped pastel safety tape dispenser with serrated edge',
+      'Water-resistant and writeable with pencil or gel pen'
+    ],
+    specifications: {
+      'Roll Count': '6 Tape Rolls (5 meters length each)',
+      'Tape Widths': '1 x 30mm, 2 x 20mm, 2 x 15mm, 1 x 10mm',
+      'Material': 'Eco-Friendly Japanese Rice Paper (Washi) + Gold Foil',
+      'Dispenser': 'Pastel Cloud Acrylic Cutter'
+    },
+    inStock: true,
+    stockLeft: 30,
+    variants: [
+      {
+        name: 'Color Palette',
+        options: [
+          { label: 'Pastel Dreamland (Pink & Yellow)', value: 'pastel-dream', inStock: true },
+          { label: 'Ocean Cloud (Blue & Mint)', value: 'ocean-cloud', inStock: true }
+        ]
+      }
+    ],
+    isStackable: true,
+    tags: ['washi tape', 'tape', 'stationery', 'crafts', 'journaling', 'scrapbooking']
+  },
+
+  // 5. Mystery Blind Box
   {
     id: 'stackd-mystery-box-s1',
     name: "The Stack'd Mystery Blind Box (Series 01)",
     tagline: '1 of 8 collectible surprise 3D clay-style vinyl desk buddies inside!',
-    price: 18.00,
-    originalPrice: 24.00,
+    price: 499,
+    originalPrice: 699,
     rating: 4.9,
     reviewsCount: 342,
     category: 'blind-boxes',
@@ -21,7 +234,7 @@ export const PRODUCTS_DATA: Product[] = [
     description: `Get ready to experience the pure joy of the unboxing! The Stack'd Series 01 Blind Box features 8 unique collectible figures including Blobby Blue, Pip Pink, Sunny Cloud, Minty Pop, plus 2 ultra-rare secret chase variants (Gold Sparkle Sunny & Glow-in-the-Dark Pip, 1/72 odds!). Each figure is precision cast in heavyweight smooth vinyl with tactile claymation styling, ready to sit perched on your monitor, desk, or stack atop each other.`,
     mascotQuote: {
       mascot: 'Pip Pink',
-      quote: "I literally unboxed 6 of these on TikTok Live and scored the secret chase Minty! The excitement is real!",
+      quote: "I literally unboxed 6 of these and scored the secret chase Minty! The excitement is real!",
       mascotAvatar: '/mascots/mascot-pink.jpg',
       color: '#FF2E7E',
     },
@@ -45,21 +258,23 @@ export const PRODUCTS_DATA: Product[] = [
       {
         name: 'Pack Size',
         options: [
-          { label: 'Single Blind Box', value: 'single', inStock: true },
-          { label: 'Trio Stack (3 Boxes - Save 10%)', value: 'trio', inStock: true },
-          { label: 'Full Case (8 Boxes - Guaranteed No Duplicates + Chase Chance!)', value: 'full-case', inStock: true }
+          { label: 'Single Blind Box (₹499)', value: 'single', inStock: true },
+          { label: 'Trio Stack (3 Boxes - ₹1,349 - Save 10%)', value: 'trio', inStock: true },
+          { label: 'Full Case (8 Boxes - ₹3,499 - Guaranteed Full Set + Chase!)', value: 'full-case', inStock: true }
         ]
       }
     ],
     isStackable: true,
     tags: ['blind box', 'mystery', 'collectibles', 'kawaii', 'stackable', 'pop mart', 'desk buddy']
   },
+
+  // 6. Complete Vinyl Toy Set
   {
     id: 'stackd-vinyl-toy-set',
     name: "The Complete Stack'd 4-Piece Vinyl Set",
     tagline: 'All 4 signature Stack\'d mascots in ultra-glossy designer art vinyl.',
-    price: 58.00,
-    originalPrice: 72.00,
+    price: 1499,
+    originalPrice: 1999,
     rating: 5.0,
     reviewsCount: 188,
     category: 'figures',
@@ -106,12 +321,14 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['vinyl toy', 'designer figure', 'art toy', 'mascots', 'collector', 'gift set']
   },
+
+  // 7. Giant Stacking Plushie Tower
   {
     id: 'stackd-plushie-tower',
     name: "Stack'd Giant Stacking Plushie Tower",
     tagline: 'Super squishy marshmallow-soft plushies designed to pile up high.',
-    price: 42.00,
-    originalPrice: 52.00,
+    price: 1199,
+    originalPrice: 1599,
     rating: 4.9,
     reviewsCount: 226,
     category: 'plushies',
@@ -158,12 +375,14 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['plushie', 'pillow', 'squishy', 'cute', 'bedding', 'soft toy']
   },
+
+  // 8. 32oz Insulated Tumbler
   {
     id: 'stackd-insulated-tumbler',
     name: "Keep It Stacked 32oz Insulated Tumbler",
     tagline: 'Triple-walled stainless steel with silicone mascot boot & spill-proof straw.',
-    price: 34.00,
-    originalPrice: 42.00,
+    price: 899,
+    originalPrice: 1199,
     rating: 4.8,
     reviewsCount: 195,
     category: 'drinkware',
@@ -211,12 +430,14 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['tumbler', 'water bottle', 'drinkware', 'insulated', 'boba', 'iced coffee']
   },
+
+  // 9. Modular Desk Drawers
   {
     id: 'stackd-modular-organizer',
     name: "Stack'd Modular Translucent Desk Drawers",
     tagline: 'Interlocking stackable candy pastel acrylic drawers for your dream desk.',
-    price: 29.00,
-    originalPrice: 38.00,
+    price: 749,
+    originalPrice: 999,
     rating: 4.9,
     reviewsCount: 164,
     category: 'desk-tech',
@@ -261,12 +482,14 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['desk organizer', 'acrylic drawers', 'stationery storage', 'workspace', 'pastel desk']
   },
+
+  // 10. Artisan Mechanical Keycaps
   {
     id: 'stackd-artisan-keycaps',
     name: "Stack'd Cute Artisan Mechanical Keycaps",
     tagline: 'Hand-sculpted 3D clay-style mascot novelty keys for mechanical keyboards.',
-    price: 26.00,
-    originalPrice: 34.00,
+    price: 649,
+    originalPrice: 849,
     rating: 5.0,
     reviewsCount: 112,
     category: 'desk-tech',
@@ -311,16 +534,18 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['mechanical keyboard', 'artisan keycaps', 'cherry mx', 'desk setup', 'kawaii tech']
   },
+
+  // 11. Holographic Sticker Vault
   {
     id: 'stackd-sticker-stationery-pack',
     name: "Keep It Stacked Holographic Sticker & Washi Vault",
     tagline: '50+ waterproof vinyl stickers, 3 metallic washi tapes & cute memo pads.',
-    price: 14.00,
-    originalPrice: 19.00,
+    price: 299,
+    originalPrice: 399,
     rating: 4.9,
     reviewsCount: 289,
     category: 'stationery',
-    categoryLabel: 'Stationery & Stickers',
+    categoryLabel: 'Kawaii Stationery',
     badge: 'New Drop',
     images: [
       '/products/mystery-box.jpg',
@@ -361,16 +586,18 @@ export const PRODUCTS_DATA: Product[] = [
     isStackable: true,
     tags: ['stickers', 'holographic', 'stationery', 'washi tape', 'bullet journal', 'kawaii']
   },
+
+  // 12. Heavyweight Canvas Tote
   {
     id: 'stackd-canvas-tote-pin-set',
     name: "Keep It Stacked Heavyweight Canvas Tote & Pin Trio",
     tagline: '16oz heavyweight organic cotton canvas tote with embroidered mascot patch.',
-    price: 32.00,
-    originalPrice: 42.00,
+    price: 799,
+    originalPrice: 999,
     rating: 4.8,
     reviewsCount: 147,
     category: 'figures',
-    categoryLabel: 'Lifestyle & Apparel',
+    categoryLabel: 'Lifestyle & Gifting',
     badge: 'Staff Favorite',
     images: [
       '/mascots/mascot-pink.jpg',

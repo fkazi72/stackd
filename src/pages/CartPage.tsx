@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus, ArrowRight, Truck, Sparkles, Tag, ShieldCheck, ShoppingBag, Layers } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { TactileButton, TactileLink } from '../components/TactileButton';
 
 export const CartPage: React.FC = () => {
   const {
@@ -52,18 +53,20 @@ export const CartPage: React.FC = () => {
           </p>
         </div>
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link
+          <TactileLink
             to="/shop"
-            className="btn-3d btn-3d-blue px-6 py-3 rounded-2xl font-heading font-bold text-sm w-full sm:w-auto"
+            delayMs={160}
+            className="btn-3d btn-3d-blue px-6 py-3 rounded-2xl font-heading font-bold text-sm w-full sm:w-auto text-center"
           >
             Explore All Goodies
-          </Link>
-          <Link
+          </TactileLink>
+          <TactileLink
             to="/stack-builder"
-            className="btn-3d btn-3d-yellow px-6 py-3 rounded-2xl font-heading font-bold text-sm w-full sm:w-auto"
+            delayMs={160}
+            className="btn-3d btn-3d-yellow px-6 py-3 rounded-2xl font-heading font-bold text-sm w-full sm:w-auto text-center"
           >
             Build Stack & Save (-20%)
-          </Link>
+          </TactileLink>
         </div>
       </div>
     );
@@ -99,8 +102,8 @@ export const CartPage: React.FC = () => {
               <Truck className="w-4 h-4 text-[#2756E8]" />
               <span>
                 {amountNeededForFreeShipping > 0
-                  ? `Add $${amountNeededForFreeShipping.toFixed(2)} more for Free Worldwide Shipping!`
-                  : '🎉 Free Worldwide Tracked Shipping Unlocked!'}
+                  ? `Add ₹${Math.round(amountNeededForFreeShipping)} more for Free Delivery across India!`
+                  : '🎉 Free Tracked Delivery Across India Unlocked!'}
               </span>
             </span>
             <span>{shippingProgressPercent}%</span>
@@ -165,7 +168,7 @@ export const CartPage: React.FC = () => {
                       </p>
                     )}
                     <p className="text-xs text-slate-500">
-                      Unit Price: ${item.product.price.toFixed(2)}
+                      Unit Price: ₹{item.product.price.toLocaleString('en-IN')}
                     </p>
                   </div>
                 </div>
@@ -195,7 +198,7 @@ export const CartPage: React.FC = () => {
                   {/* Line total */}
                   <div className="text-right">
                     <span className="font-heading font-extrabold text-base sm:text-lg text-[#2756E8]">
-                      ${(item.product.price * item.quantity).toFixed(2)}
+                      ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                     </span>
                   </div>
 
@@ -270,34 +273,35 @@ export const CartPage: React.FC = () => {
             <div className="space-y-2 text-xs text-slate-600">
               <div className="flex justify-between">
                 <span>Subtotal ({itemCount} items)</span>
-                <span className="font-bold text-slate-800">${subtotal.toFixed(2)}</span>
+                <span className="font-bold text-slate-800">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-emerald-600 font-bold">
                   <span>Stack & Save Discount</span>
-                  <span>-${discount.toFixed(2)}</span>
+                  <span>-₹{discount.toLocaleString('en-IN')}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Estimated Shipping</span>
                 <span className="font-bold text-slate-800">
-                  {shipping === 0 ? <strong className="text-emerald-600 uppercase">FREE</strong> : `$${shipping.toFixed(2)}`}
+                  {shipping === 0 ? <strong className="text-emerald-600 uppercase">FREE</strong> : `₹${shipping}`}
                 </span>
               </div>
               <div className="pt-3 border-t border-slate-100 flex justify-between text-lg font-heading font-extrabold text-slate-900">
                 <span>Total</span>
-                <span className="text-[#2756E8]">${total.toFixed(2)}</span>
+                <span className="text-[#2756E8]">₹{total.toLocaleString('en-IN')}</span>
               </div>
             </div>
 
-            {/* Checkout Button */}
-            <button
+            {/* Checkout Button with tactile press delay */}
+            <TactileButton
               onClick={() => navigate('/checkout')}
+              delayMs={180}
               className="w-full btn-3d btn-3d-blue py-4 px-6 rounded-2xl font-heading font-extrabold text-base flex items-center justify-center space-x-2 shadow-lg"
             >
               <span>Proceed to Checkout</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </TactileButton>
 
             {/* Trust Assurance */}
             <div className="pt-2 flex items-center justify-center space-x-2 text-[11px] text-slate-400 font-semibold">

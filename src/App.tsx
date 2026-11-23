@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { MascotFloatingBuddy } from './components/MascotFloatingBuddy';
 import { Toast } from './components/Toast';
+import { startFaviconRotation, stopFaviconRotation } from './utils/dynamicFavicon';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
@@ -34,6 +35,14 @@ const ScrollToTop: React.FC = () => {
 };
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    // Start dynamic mascot favicon rotation
+    startFaviconRotation(3500);
+    return () => {
+      stopFaviconRotation();
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <CartProvider>

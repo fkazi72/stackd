@@ -5,6 +5,7 @@ import { PRODUCTS_DATA } from '../data/products';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 import { ProductCard } from '../components/ProductCard';
+import { TactileLink } from '../components/TactileButton';
 
 export const WishlistPage: React.FC = () => {
   const { wishlist, toggleWishlist } = useWishlist();
@@ -31,13 +32,14 @@ export const WishlistPage: React.FC = () => {
           </p>
         </div>
         <div>
-          <Link
+          <TactileLink
             to="/shop"
+            delayMs={160}
             className="btn-3d btn-3d-blue px-8 py-3.5 rounded-2xl font-heading font-bold text-sm inline-flex items-center space-x-2"
           >
             <span>Explore Goodies</span>
             <ArrowRight className="w-4 h-4" />
-          </Link>
+          </TactileLink>
         </div>
       </div>
     );

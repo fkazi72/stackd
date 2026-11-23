@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CheckCircle2, Package, Truck, Home, Printer, ArrowRight, Sparkles, MapPin } from 'lucide-react';
+import { TactileLink } from '../components/TactileButton';
 import confetti from 'canvas-confetti';
 
 export const OrderSuccessPage: React.FC = () => {
@@ -146,7 +147,7 @@ export const OrderSuccessPage: React.FC = () => {
                   </div>
                 </div>
                 <span className="font-bold text-slate-800">
-                  ${(item.product?.price * item.quantity).toFixed(2)}
+                  ₹{(item.product?.price * item.quantity)?.toLocaleString('en-IN')}
                 </span>
               </div>
             ))}
@@ -156,23 +157,23 @@ export const OrderSuccessPage: React.FC = () => {
           <div className="pt-4 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-bold text-slate-800">${orderDetails.subtotal?.toFixed(2)}</span>
+              <span className="font-bold text-slate-800">₹{orderDetails.subtotal?.toLocaleString('en-IN')}</span>
             </div>
             {orderDetails.discount > 0 && (
               <div className="flex justify-between text-emerald-600 font-bold">
                 <span>Discount</span>
-                <span>-${orderDetails.discount?.toFixed(2)}</span>
+                <span>-₹{orderDetails.discount?.toLocaleString('en-IN')}</span>
               </div>
             )}
             <div className="flex justify-between">
               <span>Shipping ({orderDetails.shippingMethod})</span>
               <span className="font-bold text-slate-800">
-                {orderDetails.shipping === 0 ? 'FREE' : `$${orderDetails.shipping?.toFixed(2)}`}
+                {orderDetails.shipping === 0 ? 'FREE' : `₹${orderDetails.shipping}`}
               </span>
             </div>
             <div className="pt-2 border-t border-slate-100 flex justify-between text-base font-heading font-extrabold text-slate-900">
               <span>Total Paid</span>
-              <span className="text-[#2756E8]">${orderDetails.total?.toFixed(2)}</span>
+              <span className="text-[#2756E8]">₹{orderDetails.total?.toLocaleString('en-IN')}</span>
             </div>
           </div>
 
@@ -203,13 +204,14 @@ export const OrderSuccessPage: React.FC = () => {
 
       {/* Bottom CTA Navigation */}
       <div className="text-center pt-4">
-        <Link
+        <TactileLink
           to="/shop"
+          delayMs={160}
           className="btn-3d btn-3d-blue px-8 py-3.5 rounded-2xl font-heading font-bold text-sm inline-flex items-center space-x-2 shadow-lg"
         >
           <span>Continue Exploring Stacks</span>
           <ArrowRight className="w-4 h-4" />
-        </Link>
+        </TactileLink>
       </div>
     </div>
   );

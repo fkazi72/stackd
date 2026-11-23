@@ -9,14 +9,14 @@ export const FAQ_DATA: FAQItem[] = [
   {
     id: 'faq-1',
     category: 'shipping',
-    question: 'How fast do you dispatch orders & do you ship worldwide?',
-    answer: 'We dispatch all in-stock orders within 24–48 hours from our California fulfillment center! We ship to over 65 countries worldwide via tracked air courier. US standard delivery takes 3–5 business days, and international delivery takes 7–12 business days.',
+    question: 'How fast do you dispatch orders & do you deliver across India?',
+    answer: 'We dispatch all in-stock stationery & gift orders within 24–48 hours! We deliver across all pincodes in India via express tracked couriers (Bluedart, Delhivery, Speed Post). Delivery typically takes 2–4 business days.',
   },
   {
     id: 'faq-2',
     category: 'shipping',
     question: 'How can I unlock Free Shipping?',
-    answer: 'All orders over $50 automatically qualify for Free Standard Tracked Shipping worldwide! You can also use code FREESHIP at checkout or bundle 3+ items in our Stack & Save builder to unlock instant free priority shipping.',
+    answer: 'All orders over ₹999 automatically qualify for Free Tracked Express Shipping across India! On orders below ₹999, standard shipping is just ₹79. You can also use code FREESHIP at checkout or bundle 3+ items in our Stack & Save builder to unlock instant free delivery.',
   },
   {
     id: 'faq-3',

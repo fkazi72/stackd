@@ -6,6 +6,7 @@ import { REVIEWS_DATA } from '../data/reviews';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { ProductCard } from '../components/ProductCard';
+import { TactileButton } from '../components/TactileButton';
 import confetti from 'canvas-confetti';
 
 export const ProductDetailPage: React.FC = () => {
@@ -203,17 +204,17 @@ export const ProductDetailPage: React.FC = () => {
           <div className="p-4 bg-amber-50/60 rounded-3xl border border-amber-100/80 flex items-baseline justify-between">
             <div className="flex items-baseline space-x-3">
               <span className="font-heading font-extrabold text-3xl text-[#2756E8]">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toLocaleString('en-IN')}
               </span>
               {product.originalPrice && (
                 <span className="text-sm text-slate-400 line-through">
-                  ${product.originalPrice.toFixed(2)}
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
               )}
             </div>
             {savings > 0 && (
               <span className="bg-[#06D6A0] text-emerald-950 text-xs font-heading font-extrabold px-3 py-1 rounded-full shadow-xs">
-                Save ${savings.toFixed(2)}
+                Save ₹{savings.toLocaleString('en-IN')}
               </span>
             )}
           </div>
@@ -303,35 +304,37 @@ export const ProductDetailPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Add to Stack Button */}
-              <button
+              {/* Add to Stack Button with tactile press delay */}
+              <TactileButton
                 onClick={handleAddToCart}
+                delayMs={160}
                 className="flex-1 btn-3d btn-3d-blue py-3.5 px-6 rounded-2xl font-heading font-extrabold text-sm sm:text-base flex items-center justify-center space-x-2 shadow-lg"
               >
                 <ShoppingBag className="w-5 h-5" />
                 <span>Add to Stack</span>
-              </button>
+              </TactileButton>
             </div>
 
-            {/* Buy Now Button */}
-            <button
+            {/* Buy Now Button with tactile press delay */}
+            <TactileButton
               onClick={handleBuyNow}
+              delayMs={160}
               className="w-full btn-3d btn-3d-pink py-3.5 px-6 rounded-2xl font-heading font-extrabold text-sm sm:text-base flex items-center justify-center space-x-2 shadow-md"
             >
               <span>Instant Buy Now</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </TactileButton>
           </div>
 
           {/* Benefits Trust Strip */}
           <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-3 text-[11px] text-slate-600 font-semibold">
             <div className="flex items-center space-x-2">
               <Truck className="w-4 h-4 text-[#2756E8] flex-shrink-0" />
-              <span>Free Worldwide Shipping $50+</span>
+              <span>Free Delivery in India on ₹999+</span>
             </div>
             <div className="flex items-center space-x-2">
               <ShieldCheck className="w-4 h-4 text-[#06D6A0] flex-shrink-0" />
-              <span>30-Day Smile Guarantee</span>
+              <span>100% Authentic Cute Merch</span>
             </div>
           </div>
         </div>

@@ -3,18 +3,22 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Filter, SlidersHorizontal, Sparkles, X, Layers, ArrowUpDown } from 'lucide-react';
 import { PRODUCTS_DATA } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { TactileLink } from '../components/TactileButton';
+import { useScrollReveal } from '../utils/useScrollReveal';
 
 const CATEGORIES = [
   { id: 'all', label: 'All Goodies' },
+  { id: 'stationery', label: 'Cute Stationery & Pens' },
+  { id: 'gifting', label: 'Gifting & Hampers' },
   { id: 'blind-boxes', label: 'Mystery Blind Boxes' },
   { id: 'figures', label: 'Vinyl Figures' },
   { id: 'plushies', label: 'Stackable Plushies' },
   { id: 'drinkware', label: 'Insulated Tumblers' },
   { id: 'desk-tech', label: 'Desk Setup & Tech' },
-  { id: 'stationery', label: 'Stationery & Stickers' },
 ];
 
 export const ShopPage: React.FC = () => {
+  useScrollReveal();
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category') || 'all';
   const searchParam = searchParams.get('search') || '';
@@ -23,7 +27,7 @@ export const ShopPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'rating'>('featured');
   const [searchQuery, setSearchQuery] = useState(searchParam);
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [priceRange, setPriceRange] = useState<'all' | 'under-25' | '25-50' | 'above-50'>('all');
+  const [priceRange, setPriceRange] = useState<'all' | 'under-500' | '500-1000' | 'above-1000'>('all');
 
   // Sync state with URL params
   useEffect(() => {
@@ -78,10 +82,10 @@ export const ShopPage: React.FC = () => {
         return false;
       }
 
-      // Price filter
-      if (priceRange === 'under-25' && product.price >= 25) return false;
-      if (priceRange === '25-50' && (product.price < 25 || product.price > 50)) return false;
-      if (priceRange === 'above-50' && product.price <= 50) return false;
+      // Price filter in INR
+      if (priceRange === 'under-500' && product.price >= 500) return false;
+      if (priceRange === '500-1000' && (product.price < 500 || product.price > 1000)) return false;
+      if (priceRange === 'above-1000' && product.price <= 1000) return false;
 
       return true;
     }).sort((a, b) => {
@@ -96,28 +100,29 @@ export const ShopPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
       
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-blue-50 via-pink-50 to-amber-50 rounded-4xl p-6 sm:p-10 border border-amber-200/80 shadow-xs flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-blue-50 via-pink-50 to-amber-50 rounded-4xl p-6 sm:p-10 border border-amber-200/80 shadow-xs flex flex-col md:flex-row items-center justify-between gap-6 reveal-on-scroll">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white text-[#2756E8] text-xs font-heading font-extrabold shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#FFD12F]" />
-            <span>The Complete Collection</span>
+            <span>Stationery, Hampers & Collectibles</span>
           </div>
           <h1 className="font-heading font-extrabold text-3xl sm:text-5xl text-slate-900">
             Shop All Stacks
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 max-w-lg">
-            Mix and match tactile 3D collectibles, mystery blind boxes, modular organizers, and accessories.
+            Mix and match pastel gel pens, plushie locking diaries, mystery gift crates, modular organizers, and art toys.
           </p>
         </div>
 
         {/* Stack & Save teaser button */}
-        <Link
+        <TactileLink
           to="/stack-builder"
+          delayMs={180}
           className="btn-3d btn-3d-yellow px-6 py-3 rounded-2xl font-heading font-extrabold text-sm flex items-center space-x-2 shadow-md flex-shrink-0"
         >
           <Layers className="w-4 h-4" />
           <span>Build Custom Stack (-20%)</span>
-        </Link>
+        </TactileLink>
       </div>
 
       {/* Category Horizontal Filter Pills */}
@@ -146,15 +151,15 @@ export const ShopPage: React.FC = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search within products..."
+            placeholder="Search gel pens, diaries, blind boxes..."
             className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#2756E8]"
           />
         </div>
 
-        {/* Middle: Price filter options */}
+        {/* Middle: Price filter options in INR */}
         <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
           <span className="text-slate-400">Price:</span>
-          {(['all', 'under-25', '25-50', 'above-50'] as const).map((range) => (
+          {(['all', 'under-500', '500-1000', 'above-1000'] as const).map((range) => (
             <button
               key={range}
               onClick={() => setPriceRange(range)}
@@ -164,10 +169,10 @@ export const ShopPage: React.FC = () => {
                   : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
               }`}
             >
-              {range === 'all' && 'Any'}
-              {range === 'under-25' && '< $25'}
-              {range === '25-50' && '$25 - $50'}
-              {range === 'above-50' && '$50+'}
+              {range === 'all' && 'All Prices'}
+              {range === 'under-500' && '< ₹500'}
+              {range === '500-1000' && '₹500 - ₹1,000'}
+              {range === 'above-1000' && '₹1,000+'}
             </button>
           ))}
         </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShieldCheck, Lock, CreditCard, Truck, ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { TactileButton } from '../components/TactileButton';
 import confetti from 'canvas-confetti';
 
 export const CheckoutPage: React.FC = () => {
@@ -15,20 +16,21 @@ export const CheckoutPage: React.FC = () => {
   const [address, setAddress] = useState('');
   const [apartment, setApartment] = useState('');
   const [city, setCity] = useState('');
-  const [state, setState] = useState('CA');
+  const [state, setState] = useState('Maharashtra');
   const [zipCode, setZipCode] = useState('');
-  const [country, setCountry] = useState('United States');
+  const [country, setCountry] = useState('India');
   const [phone, setPhone] = useState('');
 
   // Shipping selection
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
 
   // Payment selection
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi'>('upi');
   const [cardNumber, setCardNumber] = useState('');
   const [cardExpiry, setCardExpiry] = useState('');
   const [cardCvc, setCardCvc] = useState('');
   const [cardName, setCardName] = useState('');
+  const [upiId, setUpiId] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -44,9 +46,9 @@ export const CheckoutPage: React.FC = () => {
     );
   }
 
-  const expressExtra = shippingMethod === 'express' ? 6.00 : 0;
+  const expressExtra = shippingMethod === 'express' ? 70 : 0;
   const finalShipping = shipping + expressExtra;
-  const finalTotal = Math.max(0, Math.round((subtotal - discount + finalShipping) * 100) / 100);
+  const finalTotal = Math.max(0, Math.round(subtotal - discount + finalShipping));
 
   const handleSubmitOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +57,7 @@ export const CheckoutPage: React.FC = () => {
     // Simulate payment processing
     setTimeout(() => {
       const orderId = `STK-${Math.floor(100000 + Math.random() * 900000)}`;
-      const trackingNumber = `TRK-US-${Math.floor(10000000 + Math.random() * 90000000)}`;
+      const trackingNumber = `TRK-IN-${Math.floor(10000000 + Math.random() * 90000000)}`;
 
       const orderData = {
         orderId,
@@ -270,7 +272,7 @@ export const CheckoutPage: React.FC = () => {
                       <p className="text-[11px] text-slate-500">3–5 Business Days</p>
                     </div>
                     <span className="font-bold text-xs text-slate-800">
-                      {shipping === 0 ? <strong className="text-emerald-600">FREE</strong> : `$${shipping.toFixed(2)}`}
+                      {shipping === 0 ? <strong className="text-emerald-600">FREE</strong> : `₹${shipping}`}
                     </span>
                   </div>
 
@@ -283,11 +285,11 @@ export const CheckoutPage: React.FC = () => {
                     }`}
                   >
                     <div>
-                      <p className="font-heading font-bold text-xs text-slate-800">Express Air Priority</p>
+                      <p className="font-heading font-bold text-xs text-slate-800">Express Priority</p>
                       <p className="text-[11px] text-slate-500">1–2 Business Days</p>
                     </div>
                     <span className="font-bold text-xs text-slate-800">
-                      ${(shipping + 6.00).toFixed(2)}
+                      ₹{shipping + 70}
                     </span>
                   </div>
                 </div>
@@ -308,6 +310,17 @@ export const CheckoutPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
+                onClick={() => setPaymentMethod('upi')}
+                className={`py-3 px-4 rounded-2xl font-heading font-bold text-xs border flex items-center justify-center space-x-2 transition-all ${
+                  paymentMethod === 'upi'
+                    ? 'border-[#2756E8] bg-blue-50 text-[#2756E8] shadow-xs'
+                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                <span>⚡ UPI / GPay / Paytm</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => setPaymentMethod('card')}
                 className={`py-3 px-4 rounded-2xl font-heading font-bold text-xs border flex items-center justify-center space-x-2 transition-all ${
                   paymentMethod === 'card'
@@ -316,22 +329,29 @@ export const CheckoutPage: React.FC = () => {
                 }`}
               >
                 <CreditCard className="w-4 h-4" />
-                <span>Credit / Debit Card</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('paypal')}
-                className={`py-3 px-4 rounded-2xl font-heading font-bold text-xs border flex items-center justify-center space-x-2 transition-all ${
-                  paymentMethod === 'paypal'
-                    ? 'border-[#2756E8] bg-blue-50 text-[#2756E8] shadow-xs'
-                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                }`}
-              >
-                <span>PayPal / Express</span>
+                <span>Card / NetBanking</span>
               </button>
             </div>
 
-            {paymentMethod === 'card' ? (
+            {paymentMethod === 'upi' ? (
+              <div className="p-5 bg-blue-50/60 rounded-2xl border border-blue-200 text-xs text-slate-600 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-800">Instant UPI Payment</span>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Zero Fee</span>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">Enter your UPI ID / VPA</label>
+                  <input
+                    type="text"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                    placeholder="e.g. yourname@okhdfcbank or yourname@paytm"
+                    className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#2756E8]"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-400">Or scan QR code at the next step via any UPI app (GPay, PhonePe, Paytm, BHIM).</p>
+              </div>
+            ) : (
               <div className="space-y-3 pt-2">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Card Number *</label>
@@ -385,11 +405,6 @@ export const CheckoutPage: React.FC = () => {
                   />
                 </div>
               </div>
-            ) : (
-              <div className="p-5 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-slate-600 text-center space-y-2">
-                <p className="font-bold">PayPal Express Checkout</p>
-                <p>After clicking "Place Order", you will be securely redirected to PayPal to complete your payment.</p>
-              </div>
             )}
           </div>
         </div>
@@ -417,7 +432,7 @@ export const CheckoutPage: React.FC = () => {
                     </div>
                   </div>
                   <span className="font-bold text-slate-800">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                   </span>
                 </div>
               ))}
@@ -427,23 +442,23 @@ export const CheckoutPage: React.FC = () => {
             <div className="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="font-bold text-slate-800">${subtotal.toFixed(2)}</span>
+                <span className="font-bold text-slate-800">₹{subtotal.toLocaleString('en-IN')}</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-emerald-600 font-bold">
                   <span>Discount</span>
-                  <span>-${discount.toFixed(2)}</span>
+                  <span>-₹{discount.toLocaleString('en-IN')}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Shipping ({shippingMethod === 'express' ? 'Express' : 'Standard'})</span>
                 <span className="font-bold text-slate-800">
-                  {finalShipping === 0 ? <strong className="text-emerald-600 uppercase">FREE</strong> : `$${finalShipping.toFixed(2)}`}
+                  {finalShipping === 0 ? <strong className="text-emerald-600 uppercase">FREE</strong> : `₹${finalShipping}`}
                 </span>
               </div>
               <div className="pt-3 border-t border-slate-100 flex justify-between text-xl font-heading font-extrabold text-slate-900">
                 <span>Total to Pay</span>
-                <span className="text-[#2756E8]">${finalTotal.toFixed(2)}</span>
+                <span className="text-[#2756E8]">₹{finalTotal.toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -458,7 +473,7 @@ export const CheckoutPage: React.FC = () => {
               ) : (
                 <>
                   <Sparkles className="w-5 h-5 text-[#FFD12F]" />
-                  <span>Place Order (${finalTotal.toFixed(2)})</span>
+                  <span>Place Order (₹{finalTotal.toLocaleString('en-IN')})</span>
                 </>
               )}
             </button>

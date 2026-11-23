@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Truck, ShieldCheck, Heart, Layers, ArrowRight, Star, Gift, CheckCircle } from 'lucide-react';
 import { InstagramIcon } from '../components/Icons';
@@ -6,22 +6,27 @@ import { PRODUCTS_DATA } from '../data/products';
 import { MASCOTS_DATA } from '../data/mascots';
 import { REVIEWS_DATA } from '../data/reviews';
 import { ProductCard } from '../components/ProductCard';
+import { TactileLink, TactileButton } from '../components/TactileButton';
+import { useScrollReveal } from '../utils/useScrollReveal';
 
 export const HomePage: React.FC = () => {
+  useScrollReveal();
+
   const featuredProducts = PRODUCTS_DATA.slice(0, 4);
-  const bestsellers = PRODUCTS_DATA.filter(p => p.badge === 'Bestseller' || p.badge === 'Limited');
+  const stationeryDrops = PRODUCTS_DATA.filter(p => p.category === 'stationery' || p.category === 'gifting').slice(0, 4);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
       
-      {/* HERO SECTION */}
+      {/* HERO SECTION — Clean Crisp Background, Zero Glare */}
       <section className="relative overflow-hidden pt-6 sm:pt-12 pb-12 sm:pb-20">
         
-        {/* Soft background glow & shapes */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-blue-100/60 rounded-full blur-3xl -z-10" />
-          <div className="absolute top-20 right-10 w-80 h-80 bg-pink-100/60 rounded-full blur-3xl -z-10" />
-          <div className="absolute bottom-10 left-1/3 w-96 h-96 bg-amber-100/60 rounded-full blur-3xl -z-10" />
+        {/* Crisp decorative sparkles without any blurry white haze */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 select-none">
+          <div className="absolute top-10 left-8 text-amber-300 opacity-60 animate-bounce-slight text-2xl font-bold">✦</div>
+          <div className="absolute top-24 right-12 text-pink-300 opacity-60 animate-wiggle text-xl font-bold">★</div>
+          <div className="absolute bottom-8 left-1/4 text-blue-300 opacity-50 animate-float text-lg font-bold">✦</div>
+          <div className="absolute bottom-16 right-1/3 text-emerald-300 opacity-50 animate-bounce-slight text-xl font-bold">★</div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,10 +38,10 @@ export const HomePage: React.FC = () => {
               {/* Cute Pill Badge */}
               <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#2756E8] text-xs sm:text-sm font-heading font-extrabold tracking-wide shadow-xs">
                 <Sparkles className="w-4 h-4 text-[#FFD12F]" />
-                <span>Genesis Series 01 Collectibles Drop Is Live!</span>
+                <span>Cute Kawaii Stationery & Gifting Drops Are Live!</span>
               </div>
 
-              {/* Main Headline */}
+              {/* Main Headline — High Contrast, Pure Clarity */}
               <div className="space-y-2">
                 <h1 className="font-heading font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-slate-900 leading-[1.1]">
                   A stack of things{' '}
@@ -51,26 +56,28 @@ export const HomePage: React.FC = () => {
 
               {/* Subheading */}
               <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Discover super-tactile 3D vinyl art toys, surprise mystery blind boxes, modular desk gear, and cloud plushies designed to pile up happiness in your daily routine.
+                Your happy place for pastel gel pens, fluffy plushie journals, mystery gift hampers, modular desk organizers, and collectible art buddies — crafted to keep your desk & gifting stacked with joy!
               </p>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons with satisfying tactile delay */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <Link
+                <TactileLink
                   to="/shop"
+                  delayMs={180}
                   className="w-full sm:w-auto btn-3d btn-3d-blue px-8 py-4 rounded-3xl font-heading font-extrabold text-base sm:text-lg flex items-center justify-center space-x-3 shadow-xl"
                 >
                   <span>Explore The Stacks</span>
                   <ArrowRight className="w-5 h-5" />
-                </Link>
+                </TactileLink>
 
-                <Link
+                <TactileLink
                   to="/stack-builder"
+                  delayMs={180}
                   className="w-full sm:w-auto btn-3d btn-3d-yellow px-8 py-4 rounded-3xl font-heading font-extrabold text-base sm:text-lg flex items-center justify-center space-x-2 shadow-lg"
                 >
                   <Layers className="w-5 h-5" />
                   <span>Build A Stack (-20%)</span>
-                </Link>
+                </TactileLink>
               </div>
 
               {/* Social proof snippets */}
@@ -87,7 +94,7 @@ export const HomePage: React.FC = () => {
                 <span>•</span>
                 <div className="flex items-center space-x-1">
                   <Truck className="w-4 h-4 text-[#06D6A0]" />
-                  <span>Free Worldwide Shipping $50+</span>
+                  <span>Free Tracked Delivery on ₹999+</span>
                 </div>
               </div>
             </div>
@@ -95,7 +102,7 @@ export const HomePage: React.FC = () => {
             {/* Right Hero Visual Showcase */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
               
-              {/* Outer decorative ring */}
+              {/* Outer decorative container */}
               <div className="relative w-full max-w-md sm:max-w-lg aspect-square">
                 
                 {/* Floating Benefit Tag 1 */}
@@ -124,13 +131,14 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 {/* Meet the mascots quick pill */}
-                <Link
+                <TactileLink
                   to="/about"
+                  delayMs={160}
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-[#2756E8] text-white px-4 py-2 rounded-full font-heading font-bold text-xs shadow-lg hover:bg-blue-600 transition-colors flex items-center space-x-1.5"
                 >
                   <span>Meet Blobby, Pip, Sunny & Minty</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                </TactileLink>
               </div>
             </div>
           </div>
@@ -138,7 +146,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* VALUE PROPS 4-CARD STRIP */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           
           <div className="p-6 rounded-3xl bg-blue-50/70 border border-blue-100/90 flex items-start space-x-4">
@@ -146,8 +154,8 @@ export const HomePage: React.FC = () => {
               <Truck className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-heading font-bold text-base text-slate-800">Free Worldwide Delivery</h3>
-              <p className="text-xs text-slate-500 mt-1">Free tracked courier delivery on every order over $50.</p>
+              <h3 className="font-heading font-bold text-base text-slate-800">Free Express Delivery</h3>
+              <p className="text-xs text-slate-500 mt-1">Free tracked courier delivery across India on every order over ₹999.</p>
             </div>
           </div>
 
@@ -176,15 +184,44 @@ export const HomePage: React.FC = () => {
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-heading font-bold text-base text-slate-800">Ethical Collectible Vinyl</h3>
-              <p className="text-xs text-slate-500 mt-1">100% BPA-free non-toxic materials with soy-ink recycled packaging.</p>
+              <h3 className="font-heading font-bold text-base text-slate-800">Kawaii Gifting Ready</h3>
+              <p className="text-xs text-slate-500 mt-1">Every package arrives in cute gift-ready pastel packaging with stickers.</p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* NEW DROPS: STATIONERY & GIFTING HIGHLIGHT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+          <div>
+            <span className="px-3 py-1 rounded-full bg-pink-100 text-[#FF2E7E] text-xs font-heading font-extrabold uppercase tracking-wider">
+              Stationery & Hampers
+            </span>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1">
+              Cute Stationery & Gifts
+            </h2>
+          </div>
+
+          <TactileLink
+            to="/shop?category=stationery"
+            delayMs={160}
+            className="btn-3d btn-3d-white px-5 py-2.5 rounded-2xl font-heading font-bold text-sm flex items-center space-x-2 border border-slate-200"
+          >
+            <span>View All Stationery</span>
+            <ArrowRight className="w-4 h-4" />
+          </TactileLink>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stationeryDrops.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
       {/* MEET THE STACK'D CREW SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
           <span className="px-4 py-1.5 rounded-full bg-pink-100 text-[#FF2E7E] text-xs font-heading font-extrabold uppercase tracking-wider">
             Official Mascots
@@ -244,18 +281,19 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <Link
+          <TactileLink
             to="/about"
+            delayMs={160}
             className="inline-flex items-center space-x-2 text-sm font-heading font-bold text-[#2756E8] hover:underline"
           >
             <span>Learn more about the Stack'd story & origins</span>
             <ArrowRight className="w-4 h-4" />
-          </Link>
+          </TactileLink>
         </div>
       </section>
 
       {/* FEATURED BESTSELLERS GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           <div>
             <span className="px-3 py-1 rounded-full bg-blue-100 text-[#2756E8] text-xs font-heading font-extrabold uppercase tracking-wider">
@@ -266,13 +304,14 @@ export const HomePage: React.FC = () => {
             </h2>
           </div>
 
-          <Link
+          <TactileLink
             to="/shop"
+            delayMs={160}
             className="btn-3d btn-3d-white px-5 py-2.5 rounded-2xl font-heading font-bold text-sm flex items-center space-x-2 border border-slate-200"
           >
             <span>View All ({PRODUCTS_DATA.length})</span>
             <ArrowRight className="w-4 h-4" />
-          </Link>
+          </TactileLink>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -283,7 +322,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* LIFESTYLE ROOM BANNER CALLOUT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="relative rounded-4xl overflow-hidden shadow-2xl border-4 border-white bg-slate-900 group">
           
           <img
@@ -302,16 +341,17 @@ export const HomePage: React.FC = () => {
                 Turn your desk into your happy place.
               </h3>
               <p className="text-xs sm:text-sm text-slate-200">
-                Mix and match modular drawers, cute vinyl companions, insulated tumblers, and desk pads for the ultimate cozy setup.
+                Mix and match pastel gel pens, plushie diaries, modular drawers, insulated tumblers, and desk pads for the ultimate cozy setup.
               </p>
               <div className="pt-2">
-                <Link
+                <TactileLink
                   to="/shop"
+                  delayMs={180}
                   className="btn-3d btn-3d-pink px-6 py-3 rounded-2xl font-heading font-bold text-sm inline-flex items-center space-x-2 shadow-lg"
                 >
                   <span>Shop The Look</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </TactileLink>
               </div>
             </div>
           </div>
@@ -319,7 +359,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* STACK & SAVE BUNDLE CALLOUT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="bg-gradient-to-br from-[#FFD12F]/20 via-[#FFFDF9] to-[#06D6A0]/20 rounded-4xl p-8 sm:p-12 border-2 border-amber-200 shadow-md flex flex-col lg:flex-row items-center justify-between gap-8">
           
           <div className="max-w-xl space-y-4 text-center lg:text-left">
@@ -331,7 +371,7 @@ export const HomePage: React.FC = () => {
               Build your custom stack. Save up to 20%!
             </h2>
             <p className="text-sm text-slate-600">
-              Pick 3 items to get 10% off instantly, or pick 5 items to get a massive 20% bundle discount plus free worldwide priority shipping!
+              Pick 3 items to get 10% off instantly, or pick 5 items to get a massive 20% bundle discount plus free priority shipping across India!
             </p>
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-bold text-slate-700 pt-2">
               <span className="flex items-center space-x-1">
@@ -348,13 +388,14 @@ export const HomePage: React.FC = () => {
               </span>
             </div>
             <div className="pt-2">
-              <Link
+              <TactileLink
                 to="/stack-builder"
+                delayMs={180}
                 className="btn-3d btn-3d-blue px-7 py-3.5 rounded-2xl font-heading font-extrabold text-base inline-flex items-center space-x-2 shadow-lg"
               >
                 <span>Launch Stack Builder</span>
                 <ArrowRight className="w-5 h-5" />
-              </Link>
+              </TactileLink>
             </div>
           </div>
 
@@ -369,7 +410,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* VERIFIED CUSTOMER REVIEWS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
           <span className="px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-heading font-extrabold uppercase tracking-wider">
             Real Reviews
@@ -424,7 +465,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* INSTAGRAM COMMUNITY BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
         <div className="bg-white rounded-4xl border-2 border-amber-100 p-8 sm:p-12 shadow-sm text-center space-y-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-pink-50 border border-pink-200 text-[#FF2E7E] text-xs font-heading font-extrabold">
             <InstagramIcon className="w-4 h-4" />
@@ -436,7 +477,7 @@ export const HomePage: React.FC = () => {
               Tag us in your stacks!
             </h2>
             <p className="text-sm text-slate-600">
-              Share your unboxing reels, desk setup photos, and mascot stacks using <strong className="text-[#2756E8]">#KeepItStackd</strong> for a chance to win a free monthly mystery box!
+              Share your unboxing reels, journal setups, and mascot stacks using <strong className="text-[#2756E8]">#KeepItStackd</strong> for a chance to win a free monthly mystery crate!
             </p>
           </div>
 
@@ -451,7 +492,7 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xs border border-slate-100 group">
               <img
-                src="/products/tumbler.jpg"
+                src="/products/gel-pens.jpg"
                 alt="Instagram post 2"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform"
               />

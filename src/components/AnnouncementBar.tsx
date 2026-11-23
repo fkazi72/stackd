@@ -3,10 +3,10 @@ import { Sparkles, Truck, Gift, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const announcements = [
-  { text: "FREE Worldwide Shipping on orders over $50! 🚀", icon: Truck },
-  { text: "Stack & Save: Add 3+ items to unlock up to 20% OFF! 📦", icon: Gift },
-  { text: "Use code STACK10 for 10% off your first order ✨", icon: Sparkles },
-  { text: "Join 15,000+ friends on Instagram @keepitstackd 💖", icon: Heart, link: "https://www.instagram.com/keepitstackd/" }
+  { text: "FREE Tracked Delivery across India on orders over ₹999! 🚀", icon: Truck },
+  { text: "Stack & Save: Bundle 3+ cute items to unlock up to 20% OFF! 📦", icon: Gift },
+  { text: "Use coupon code STACK10 for 10% off your first stack ✨", icon: Sparkles },
+  { text: "Join 15,000+ stationery lovers on Instagram @keepitstackd 💖", icon: Heart, link: "https://www.instagram.com/keepitstackd/" }
 ];
 
 export const AnnouncementBar: React.FC = () => {

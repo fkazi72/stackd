@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, ArrowRight, Sparkles, ShieldCheck, Truck, Tag } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { TactileButton } from './TactileButton';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -81,7 +82,7 @@ export const CartDrawer: React.FC = () => {
                 <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-1.5">
                   <span className="flex items-center space-x-1.5">
                     <Truck className="w-4 h-4 text-[#2756E8]" />
-                    <span>Add <strong className="text-[#2756E8]">${amountNeededForFreeShipping.toFixed(2)}</strong> for Free Worldwide Shipping!</span>
+                    <span>Add <strong className="text-[#2756E8]">₹{amountNeededForFreeShipping.toLocaleString('en-IN')}</strong> for Free Delivery across India!</span>
                   </span>
                   <span>{shippingProgressPercent}%</span>
                 </div>
@@ -95,7 +96,7 @@ export const CartDrawer: React.FC = () => {
             ) : (
               <div className="flex items-center justify-center space-x-2 text-xs font-bold text-[#06D6A0] bg-emerald-50 py-1.5 px-3 rounded-xl border border-emerald-200">
                 <Sparkles className="w-4 h-4 text-[#06D6A0]" />
-                <span>🎉 Yay! You unlocked FREE Worldwide Shipping!</span>
+                <span>🎉 Yay! You unlocked FREE Tracked Delivery!</span>
               </div>
             )}
           </div>
@@ -157,7 +158,7 @@ export const CartDrawer: React.FC = () => {
                     )}
                     <div className="flex items-center justify-between mt-2">
                       <span className="font-extrabold text-sm text-[#2756E8]">
-                        ${(item.product.price * item.quantity).toFixed(2)}
+                        ₹{(item.product.price * item.quantity).toLocaleString('en-IN')}
                       </span>
 
                       {/* Quantity Selector */}
@@ -241,37 +242,39 @@ export const CartDrawer: React.FC = () => {
               <div className="space-y-1.5 text-xs text-slate-600">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold text-slate-800">${subtotal.toFixed(2)}</span>
+                  <span className="font-bold text-slate-800">₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-emerald-600 font-bold">
                     <span>Savings / Discount</span>
-                    <span>-${discount.toFixed(2)}</span>
+                    <span>-₹{discount.toLocaleString('en-IN')}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
                   <span>Shipping</span>
                   <span className="font-bold text-slate-800">
-                    {shipping === 0 ? <span className="text-emerald-600 uppercase font-extrabold">FREE</span> : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? <span className="text-emerald-600 uppercase font-extrabold">FREE</span> : `₹${shipping.toLocaleString('en-IN')}`}
                   </span>
                 </div>
                 <div className="pt-2 border-t border-slate-100 flex justify-between text-base font-extrabold text-slate-900 font-heading">
                   <span>Total</span>
-                  <span className="text-[#2756E8]">${total.toFixed(2)}</span>
+                  <span className="text-[#2756E8]">₹{total.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
               {/* Action Buttons */}
               <div className="space-y-2">
-                <button
+                <TactileButton
+                  delayMs={180}
                   onClick={handleCheckoutClick}
                   className="w-full btn-3d btn-3d-blue py-3.5 px-4 rounded-2xl font-heading font-bold text-base flex items-center justify-center space-x-2 shadow-lg"
                 >
                   <span>Checkout Now</span>
                   <ArrowRight className="w-5 h-5" />
-                </button>
+                </TactileButton>
 
-                <button
+                <TactileButton
+                  delayMs={160}
                   onClick={() => {
                     setCartOpen(false);
                     navigate('/cart');
@@ -279,7 +282,7 @@ export const CartDrawer: React.FC = () => {
                   className="w-full py-2.5 text-center text-xs font-bold text-slate-600 hover:text-[#2756E8] hover:bg-slate-50 rounded-xl transition-colors"
                 >
                   View Full Cart & Bundle Discounts
-                </button>
+                </TactileButton>
               </div>
 
               {/* Safe Checkout Badges */}

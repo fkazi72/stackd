@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Mail, MessageCircle, MapPin, Clock, ChevronDown, ChevronUp, Send, CheckCircle2, Sparkles } from 'lucide-react';
 import { InstagramIcon } from '../components/Icons';
 import { FAQ_DATA } from '../data/faqs';
+import { TactileButton } from '../components/TactileButton';
+import { useScrollReveal } from '../utils/useScrollReveal';
 import confetti from 'canvas-confetti';
 
 export const ContactPage: React.FC = () => {
+  useScrollReveal();
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formOrderNum, setFormOrderNum] = useState('');

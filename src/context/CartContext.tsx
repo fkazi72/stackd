@@ -31,8 +31,8 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const CART_STORAGE_KEY = 'stackd_cart_v1';
 const PROMO_STORAGE_KEY = 'stackd_promo_v1';
-const FREE_SHIPPING_THRESHOLD = 50;
-const STANDARD_SHIPPING_FEE = 5.99;
+const FREE_SHIPPING_THRESHOLD = 999;
+const STANDARD_SHIPPING_FEE = 79;
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>(() => {

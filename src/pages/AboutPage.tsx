@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Sparkles, Heart, ShieldCheck, ArrowRight, Layers, Smile, Package } from 'lucide-react';
 import { InstagramIcon } from '../components/Icons';
 import { MASCOTS_DATA } from '../data/mascots';
+import { useScrollReveal } from '../utils/useScrollReveal';
 
 export const AboutPage: React.FC = () => {
+  useScrollReveal();
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
       
@@ -40,7 +42,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* Brand Philosophy: 3 Pillars */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="reveal-on-scroll max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
           <span className="text-xs font-heading font-extrabold text-[#FF2E7E] uppercase tracking-wider">
             Our DNA
@@ -91,7 +93,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* MEET EACH MASCOT IN DEPTH */}
-      <section id="mascots" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section id="mascots" className="reveal-on-scroll max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="px-4 py-1.5 rounded-full bg-blue-100 text-[#2756E8] text-xs font-heading font-extrabold uppercase tracking-wider">
             Character Bios
@@ -168,7 +170,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* INSTAGRAM BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="reveal-on-scroll max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-pink-50 via-amber-50 to-blue-50 rounded-4xl p-8 sm:p-12 border border-amber-200 text-center space-y-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white text-[#FF2E7E] text-xs font-heading font-extrabold shadow-xs">
             <InstagramIcon className="w-4 h-4" />

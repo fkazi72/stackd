@@ -3,6 +3,7 @@ import { Layers, Plus, Trash2, CheckCircle2, Sparkles, ArrowRight, Truck, Shoppi
 import { PRODUCTS_DATA } from '../data/products';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
+import { TactileButton } from '../components/TactileButton';
 import confetti from 'canvas-confetti';
 
 export const StackBuilderPage: React.FC = () => {
@@ -82,7 +83,7 @@ export const StackBuilderPage: React.FC = () => {
           <div className={`px-4 py-2 rounded-2xl border transition-all ${
             selectedItems.length >= 5 ? 'bg-[#06D6A0] text-emerald-950 border-[#06D6A0] shadow-sm' : 'bg-white text-slate-600 border-slate-200'
           }`}>
-            <span>Tier 2 (5+ Items): 20% OFF + Free Worldwide Shipping</span>
+            <span>Tier 2 (5+ Items): 20% OFF + Free Express Shipping across India</span>
           </div>
         </div>
       </div>
@@ -117,18 +118,19 @@ export const StackBuilderPage: React.FC = () => {
                     </h4>
                     <p className="text-[11px] text-slate-400">{product.categoryLabel}</p>
                     <span className="font-heading font-extrabold text-xs text-[#2756E8] mt-1 block">
-                      ${product.price.toFixed(2)}
+                      ₹{product.price.toLocaleString('en-IN')}
                     </span>
                   </div>
                 </div>
 
-                <button
+                <TactileButton
                   onClick={() => handleAddItem(product)}
+                  delayMs={140}
                   className="w-full btn-3d btn-3d-blue py-2 px-3 rounded-xl font-heading font-bold text-xs flex items-center justify-center space-x-1.5"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add to Stack</span>
-                </button>
+                </TactileButton>
               </div>
             ))}
           </div>
@@ -184,7 +186,7 @@ export const StackBuilderPage: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-xs font-bold text-[#2756E8]">${item.price.toFixed(2)}</span>
+                      <span className="text-xs font-bold text-[#2756E8]">₹{item.price.toLocaleString('en-IN')}</span>
                       <button
                         onClick={() => handleRemoveItem(index)}
                         className="text-slate-400 hover:text-rose-500 p-1"
@@ -202,7 +204,7 @@ export const StackBuilderPage: React.FC = () => {
             {discountPercent > 0 && (
               <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-center space-x-2 text-xs font-bold text-emerald-800">
                 <Sparkles className="w-4 h-4 text-[#06D6A0]" />
-                <span>🎉 {discountPercent}% Stack Discount Unlocked! You save ${discountAmount.toFixed(2)}!</span>
+                <span>🎉 {discountPercent}% Stack Discount Unlocked! You save ₹{Math.round(discountAmount).toLocaleString('en-IN')}!</span>
               </div>
             )}
 
@@ -210,29 +212,30 @@ export const StackBuilderPage: React.FC = () => {
             <div className="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
               <div className="flex justify-between">
                 <span>Items Subtotal</span>
-                <span className="font-bold text-slate-800">${rawSubtotal.toFixed(2)}</span>
+                <span className="font-bold text-slate-800">₹{Math.round(rawSubtotal).toLocaleString('en-IN')}</span>
               </div>
               {discountAmount > 0 && (
                 <div className="flex justify-between text-emerald-600 font-bold">
                   <span>Stack & Save ({discountPercent}%)</span>
-                  <span>-${discountAmount.toFixed(2)}</span>
+                  <span>-₹{Math.round(discountAmount).toLocaleString('en-IN')}</span>
                 </div>
               )}
               <div className="pt-2 border-t border-slate-100 flex justify-between text-lg font-heading font-extrabold text-slate-900">
                 <span>Bundle Total</span>
-                <span className="text-[#2756E8]">${bundleTotal.toFixed(2)}</span>
+                <span className="text-[#2756E8]">₹{Math.round(bundleTotal).toLocaleString('en-IN')}</span>
               </div>
             </div>
 
-            {/* Add Stack to Cart CTA */}
-            <button
+            {/* Add Stack to Cart CTA with tactile delay */}
+            <TactileButton
               onClick={handleAddStackToCart}
+              delayMs={180}
               disabled={selectedItems.length === 0}
               className="w-full btn-3d btn-3d-yellow py-3.5 px-6 rounded-2xl font-heading font-extrabold text-base flex items-center justify-center space-x-2 shadow-lg disabled:opacity-40"
             >
               <ShoppingBag className="w-5 h-5" />
               <span>Add Entire Stack to Cart</span>
-            </button>
+            </TactileButton>
           </div>
         </div>
       </div>
