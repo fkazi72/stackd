@@ -65,7 +65,7 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
       */}
       <div className="relative w-20 h-16 sm:w-24 sm:h-18 flex items-center justify-center flex-shrink-0 overflow-visible">
         
-        {/* Continuous Transparent Flow Animation from Google Flow */}
+        {/* Continuous Transparent Flow Animation from Google Flow (Zero Background) */}
         <div
           className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-out ${
             isPlayingFlow
@@ -73,12 +73,20 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
               : 'opacity-0 scale-90 pointer-events-none'
           }`}
         >
-          <img
-            key={cacheBuster}
-            src={`/mascots/navbar-mascots-flow.gif?v=${cacheBuster}`}
-            alt="Stack'd Mascots Animated Flow"
+          <video
+            key={`video-${cacheBuster}`}
+            autoPlay
+            muted
+            playsInline
             className="w-full h-full object-contain filter drop-shadow-md"
-          />
+          >
+            <source src={`/mascots/navbar-mascots-flow.webm?v=${cacheBuster}`} type="video/webm" />
+            <img
+              src={`/mascots/navbar-mascots-flow.gif?v=${cacheBuster}`}
+              alt="Stack'd Mascots Animated Flow"
+              className="w-full h-full object-contain filter drop-shadow-md"
+            />
+          </video>
         </div>
 
         {/* Finale / Idle State: Official Transparent 3D Stack'd Logo */}
