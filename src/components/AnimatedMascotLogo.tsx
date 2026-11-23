@@ -109,7 +109,7 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
       */}
       <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center flex-shrink-0 overflow-visible">
         
-        {/* MASCOT 1: Blobby Blue (Wave / Hi!) */}
+        {/* MASCOT 1: Blobby Blue (Google Flow Animated GIF - Wave / Hi!) */}
         <div
           className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-400 ease-out pointer-events-none ${
             stage === 'mascot1-in'
@@ -120,9 +120,9 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
           }`}
         >
           <img
-            src="/mascots/mascot-blue-transparent.png"
-            alt="Blobby Blue"
-            className="w-14 h-14 sm:w-16 sm:h-16 object-contain filter drop-shadow-md animate-wiggle"
+            src="/mascots/mascot-blob-animated.gif"
+            alt="Blobby Blue Animated"
+            className="w-16 h-16 sm:w-20 sm:h-20 object-contain filter drop-shadow-md"
           />
           {stage === 'mascot1-in' && (
             <span className="absolute -top-3 bg-white/90 backdrop-blur-xs text-[#2756E8] text-[10px] font-heading font-extrabold px-2 py-0.5 rounded-full shadow-xs border border-blue-200 animate-bounce">
@@ -131,7 +131,7 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
           )}
         </div>
 
-        {/* MASCOT 2: Minty Pop (Celebration Jump / Shine) */}
+        {/* MASCOT 2: Minty Pop (Google Flow Animated GIF - Jump / Gift Box Shine) */}
         <div
           className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-400 ease-out pointer-events-none ${
             stage === 'mascot2-in'
@@ -142,9 +142,9 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
           }`}
         >
           <img
-            src="/mascots/mascot-mint-transparent.png"
-            alt="Minty Pop"
-            className="w-14 h-14 sm:w-16 sm:h-16 object-contain filter drop-shadow-md animate-bounce-slight"
+            src="/mascots/mascot-mint-animated.gif"
+            alt="Minty Pop Animated"
+            className="w-16 h-16 sm:w-20 sm:h-20 object-contain filter drop-shadow-md"
           />
           {stage === 'mascot2-in' && (
             <span className="absolute -top-3 bg-white/90 backdrop-blur-xs text-[#06D6A0] text-[10px] font-heading font-extrabold px-2 py-0.5 rounded-full shadow-xs border border-emerald-200 animate-pulse">
