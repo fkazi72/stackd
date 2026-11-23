@@ -8,6 +8,7 @@ import { REVIEWS_DATA } from '../data/reviews';
 import { ProductCard } from '../components/ProductCard';
 import { TactileLink, TactileButton } from '../components/TactileButton';
 import { useScrollReveal } from '../utils/useScrollReveal';
+import TextLoop from '../components/TextLoop';
 
 export const HomePage: React.FC = () => {
   useScrollReveal();
@@ -143,6 +144,34 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* REACT-BITS TEXT LOOP MARQUEE (Wave Ribbon) */}
+      <section className="w-full overflow-hidden select-none -my-10 sm:-my-16">
+        <TextLoop
+          text="Stack'd ✦ KEEP IT STACK'd"
+          shape="wave"
+          speed={110}
+          direction="forward"
+          separator="✦"
+          curviness={52}
+          tilt={-5}
+          fontSize={46}
+          fontWeight={800}
+          letterSpacing={2}
+          uppercase
+          ribbon
+          ribbonColor="#ec4899"
+          ribbonWidth={86}
+          edgeFade={0.1}
+          cross={false}
+          crossAngle={16}
+          draggable={false}
+          scrollBoost={0}
+          outline={false}
+          pauseOnHover
+          outlineWidth={1.5}
+        />
       </section>
 
       {/* VALUE PROPS 4-CARD STRIP */}

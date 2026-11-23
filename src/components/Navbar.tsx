@@ -113,18 +113,8 @@ export const Navbar: React.FC = () => {
             <AnimatedMascotLogo />
           </div>
 
-          {/* RIGHT: Actions (Currency badge, Search, Wishlist, Cart) */}
+          {/* RIGHT: Actions (Search, Wishlist, Cart) */}
           <div className="flex items-center flex-1 justify-end space-x-2 sm:space-x-3">
-            
-            {/* Currency Pill Indicator (Indian Rupees) */}
-            <div
-              title="Official Indian Store (INR ₹)"
-              className="hidden sm:inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-2xl bg-amber-50/80 border border-amber-200/70 text-slate-700 text-xs font-bold font-heading select-none"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#06D6A0]" />
-              <span className="font-extrabold text-[#2756E8]">₹ INR</span>
-            </div>
-
             {/* Search Button */}
             <div className="relative">
               <button
@@ -320,7 +310,6 @@ export const Navbar: React.FC = () => {
             >
               Instagram: @keepitstackd
             </a>
-            <span className="text-xs font-bold text-[#FF2E7E]">Pricing: ₹ INR</span>
           </div>
         </div>
       )}
