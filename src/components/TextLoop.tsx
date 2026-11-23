@@ -7,6 +7,8 @@ export type TextLoopShape = 'wave' | 'circle' | 'infinity' | 'arch' | 'line';
 export type TextLoopDirection = 'forward' | 'reverse';
 
 export interface TextLoopProps {
+  viewBoxWidth?: number;
+  viewBoxHeight?: number;
   text?: string;
   shape?: TextLoopShape;
   path?: string;
@@ -48,10 +50,6 @@ interface FadeStop {
   opacity: number;
 }
 
-const VIEW_W = 1200;
-const VIEW_H = 520;
-const CX = VIEW_W / 2;
-const CY = VIEW_H / 2;
 const EDGE_PAD = 6;
 const FADE_STEPS = 8;
 const MAX_FLING = 2600;
@@ -63,46 +61,55 @@ const smootherstep = (t: number) => t * t * t * (t * (t * 6 - 15) + 10);
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 const wrap = (v: number, length: number) => ((v % length) + length) % length;
 
-const circleRadius = (curviness: number, ribbonWidth: number) =>
-  Math.min(90 + Math.max(0, curviness) * 0.95, Math.max(20, CY - Math.max(0, ribbonWidth) / 2 - EDGE_PAD));
+const circleRadius = (curviness: number, ribbonWidth: number, cy = 90) =>
+  Math.min(90 + Math.max(0, curviness) * 0.95, Math.max(20, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD));
 
-const buildPath = (shape: TextLoopShape, curviness: number, ribbonWidth: number, mirrored = false): string => {
+const buildPath = (
+  shape: TextLoopShape,
+  curviness: number,
+  ribbonWidth: number,
+  viewW: number,
+  viewH: number,
+  mirrored = false
+): string => {
+  const cx = viewW / 2;
+  const cy = viewH / 2;
   const c = Math.max(0, curviness);
-  const room = Math.max(20, CY - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
+  const room = Math.max(15, cy - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
   const flip = mirrored ? -1 : 1;
 
   switch (shape) {
     case 'circle': {
-      const r = circleRadius(curviness, ribbonWidth);
+      const r = circleRadius(curviness, ribbonWidth, cy);
       if (mirrored) {
         const rx = r * 1.22;
         const ry = r * 0.42;
-        return `M ${CX - rx} ${CY} A ${rx} ${ry} 0 1 1 ${CX + rx} ${CY} A ${rx} ${ry} 0 1 1 ${CX - rx} ${CY} Z`;
+        return `M ${cx - rx} ${cy} A ${rx} ${ry} 0 1 1 ${cx + rx} ${cy} A ${rx} ${ry} 0 1 1 ${cx - rx} ${cy} Z`;
       }
-      return `M ${CX - r} ${CY} A ${r} ${r} 0 1 1 ${CX + r} ${CY} A ${r} ${r} 0 1 1 ${CX - r} ${CY} Z`;
+      return `M ${cx - r} ${cy} A ${r} ${r} 0 1 1 ${cx + r} ${cy} A ${r} ${r} 0 1 1 ${cx - r} ${cy} Z`;
     }
     case 'infinity': {
       const r = 150 + c * 1.4;
       const h = Math.min(60 + c * 0.95, room);
       return [
-        `M ${CX} ${CY}`,
-        `C ${CX + r * 0.55} ${CY - h} ${CX + r} ${CY - h} ${CX + r} ${CY}`,
-        `C ${CX + r} ${CY + h} ${CX + r * 0.55} ${CY + h} ${CX} ${CY}`,
-        `C ${CX - r * 0.55} ${CY - h} ${CX - r} ${CY - h} ${CX - r} ${CY}`,
-        `C ${CX - r} ${CY + h} ${CX - r * 0.55} ${CY + h} ${CX} ${CY}`,
+        `M ${cx} ${cy}`,
+        `C ${cx + r * 0.55} ${cy - h} ${cx + r} ${cy - h} ${cx + r} ${cy}`,
+        `C ${cx + r} ${cy + h} ${cx + r * 0.55} ${cy + h} ${cx} ${cy}`,
+        `C ${cx - r * 0.55} ${cy - h} ${cx - r} ${cy - h} ${cx - r} ${cy}`,
+        `C ${cx - r} ${cy + h} ${cx - r * 0.55} ${cy + h} ${cx} ${cy}`,
         'Z'
       ].join(' ');
     }
     case 'arch': {
-      const rise = Math.min(120 + c * 1.1, room * 2) * flip;
-      return `M 120 ${CY + rise / 2} Q ${CX} ${CY - rise * 1.5} ${VIEW_W - 120} ${CY + rise / 2}`;
+      const rise = Math.min(60 + c * 0.8, room * 1.8) * flip;
+      return `M 120 ${cy + rise / 2} Q ${cx} ${cy - rise * 1.5} ${viewW - 120} ${cy + rise / 2}`;
     }
     case 'line':
-      return `M -320 ${CY} L ${VIEW_W + 320} ${CY}`;
+      return `M -320 ${cy} L ${viewW + 320} ${cy}`;
     case 'wave':
     default: {
-      const a = Math.min(c * 2.2, room * 2) * flip;
-      return `M -320 ${CY} Q -160 ${CY - a} 0 ${CY} T 320 ${CY} T 640 ${CY} T 960 ${CY} T 1280 ${CY} T ${VIEW_W + 320} ${CY}`;
+      const a = Math.min(c * 1.5, room * 0.95) * flip;
+      return `M -320 ${cy} Q -160 ${cy - a} 0 ${cy} T 320 ${cy} T 640 ${cy} T 960 ${cy} T 1280 ${cy} T ${viewW + 320} ${cy}`;
     }
   }
 };
@@ -152,6 +159,8 @@ const inkOn = (color: string): string => {
 };
 
 export const TextLoop = ({
+  viewBoxWidth = 1200,
+  viewBoxHeight = 180,
   text = 'React ✦ Bits',
   shape = 'wave',
   path,
@@ -180,6 +189,11 @@ export const TextLoop = ({
   className = '',
   style = {}
 }: TextLoopProps) => {
+  const viewW = viewBoxWidth;
+  const viewH = viewBoxHeight;
+  const cx = viewW / 2;
+  const cy = viewH / 2;
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const pathRef = useRef<SVGPathElement | null>(null);
@@ -202,20 +216,20 @@ export const TextLoop = ({
   const underId = `${pathId}-under`;
 
   const custom = Boolean(path);
-  const d = useMemo(() => path || buildPath(shape, curviness, ribbonWidth), [path, shape, curviness, ribbonWidth]);
+  const d = useMemo(() => path || buildPath(shape, curviness, ribbonWidth, viewW, viewH), [path, shape, curviness, ribbonWidth, viewW, viewH]);
   const crossD = useMemo(() => {
     if (!cross) return '';
     if (path) return path;
-    return buildPath(shape, curviness, ribbonWidth, shape === 'wave' || shape === 'arch' || shape === 'circle');
-  }, [cross, path, shape, curviness, ribbonWidth]);
+    return buildPath(shape, curviness, ribbonWidth, viewW, viewH, shape === 'wave' || shape === 'arch' || shape === 'circle');
+  }, [cross, path, shape, curviness, ribbonWidth, viewW, viewH]);
   const fade = useMemo(() => buildFade(edgeFade), [edgeFade]);
   const fill = color || (ribbon ? '#ffffff' : 'currentColor');
 
   const half = cross ? crossAngle / 2 : 0;
   const mainAngle = tilt + half;
   const crossAngleDeg = tilt - half;
-  const mainTransform = mainAngle ? `rotate(${mainAngle} ${CX} ${CY})` : undefined;
-  const crossTransform = crossAngleDeg ? `rotate(${crossAngleDeg} ${CX} ${CY})` : undefined;
+  const mainTransform = mainAngle ? `rotate(${mainAngle} ${cx} ${cy})` : undefined;
+  const crossTransform = crossAngleDeg ? `rotate(${crossAngleDeg} ${cx} ${cy})` : undefined;
   const crossTape = crossColor || tint(ribbonColor, 0.62);
   const crossFill = ribbon ? inkOn(crossTape) : crossColor || 'currentColor';
   const crossDim = !ribbon && !crossColor ? 0.45 : 1;
@@ -306,7 +320,7 @@ export const TextLoop = ({
     const hover = { scale: 1 };
     const angle = (mainAngle * Math.PI) / 180;
     const circular = !custom && shape === 'circle';
-    const radius = circleRadius(curviness, ribbonWidth);
+    const radius = circleRadius(curviness, ribbonWidth, cy);
     const boosting = scrollBoost > 0 && !reduced;
 
     let fling = 0;
@@ -387,7 +401,7 @@ export const TextLoop = ({
         if (turn < -Math.PI) turn += Math.PI * 2;
         delta = turn * radius;
       } else {
-        const scale = VIEW_W / (svg.getBoundingClientRect().width || VIEW_W);
+        const scale = viewW / (svg.getBoundingClientRect().width || viewW);
         delta = ((event.clientX - lastX) * Math.cos(angle) + (event.clientY - lastY) * Math.sin(angle)) * scale;
       }
       travel += delta;
@@ -502,7 +516,7 @@ export const TextLoop = ({
       <svg
         ref={svgRef}
         className="block w-full h-auto"
-        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        viewBox={`0 0 ${viewW} ${viewH}`}
         preserveAspectRatio="xMidYMid meet"
         role="img"
         aria-label={text}
@@ -516,18 +530,18 @@ export const TextLoop = ({
             </linearGradient>
           )}
           {fade.length > 0 && (
-            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={VIEW_W} height={VIEW_H}>
-              <rect width={VIEW_W} height={VIEW_H} fill={`url(#${fadeId})`} />
+            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={viewW} height={viewH}>
+              <rect width={viewW} height={viewH} fill={`url(#${fadeId})`} />
             </mask>
           )}
           {cross && ribbon && (
             <filter
               id={shadowId}
               filterUnits="userSpaceOnUse"
-              x={-VIEW_W}
-              y={-VIEW_H}
-              width={VIEW_W * 3}
-              height={VIEW_H * 3}
+              x={-viewW}
+              y={-viewH}
+              width={viewW * 3}
+              height={viewH * 3}
             >
               <feGaussianBlur stdDeviation={Math.max(4, ribbonWidth * 0.11)} />
             </filter>
@@ -536,10 +550,10 @@ export const TextLoop = ({
             <mask
               id={underId}
               maskUnits="userSpaceOnUse"
-              x={-VIEW_W}
-              y={-VIEW_H}
-              width={VIEW_W * 3}
-              height={VIEW_H * 3}
+              x={-viewW}
+              y={-viewH}
+              width={viewW * 3}
+              height={viewH * 3}
             >
               <g transform={crossTransform}>
                 <path

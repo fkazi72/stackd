@@ -147,23 +147,25 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* REACT-BITS TEXT LOOP MARQUEE (Wave Ribbon) */}
-      <section className="w-full overflow-hidden select-none -my-10 sm:-my-16">
+      <section className="w-full overflow-hidden select-none -mt-8 sm:-mt-12 -mb-4 sm:-mb-6">
         <TextLoop
           text="Stack'd ✦ KEEP IT STACK'd"
           shape="wave"
-          speed={110}
+          speed={85}
           direction="forward"
           separator="✦"
-          curviness={52}
-          tilt={-5}
-          fontSize={46}
+          curviness={16}
+          tilt={-2}
+          fontSize={20}
           fontWeight={800}
           letterSpacing={2}
           uppercase
           ribbon
           ribbonColor="#ec4899"
-          ribbonWidth={86}
-          edgeFade={0.1}
+          ribbonWidth={40}
+          viewBoxWidth={1200}
+          viewBoxHeight={110}
+          edgeFade={0.08}
           cross={false}
           crossAngle={16}
           draggable={false}
