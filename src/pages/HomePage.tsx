@@ -20,7 +20,7 @@ export const HomePage: React.FC = () => {
     <div className="space-y-16 sm:space-y-24 pb-16">
       
       {/* HERO SECTION — Clean Crisp Background, Zero Glare */}
-      <section className="relative overflow-hidden pt-6 sm:pt-12 pb-12 sm:pb-20">
+      <section className="relative overflow-hidden pt-6 sm:pt-12 pb-4 sm:pb-8">
         
         {/* Crisp decorative sparkles without any blurry white haze */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 select-none">
@@ -147,24 +147,24 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* REACT-BITS TEXT LOOP MARQUEE (Wave Ribbon) */}
-      <section className="w-full overflow-hidden select-none -mt-8 sm:-mt-12 -mb-4 sm:-mb-6">
+      <section className="w-full overflow-hidden select-none -mt-6 sm:-mt-10 -mb-4 sm:-mb-6">
         <TextLoop
           text="Stack'd ✦ KEEP IT STACK'd"
           shape="wave"
-          speed={85}
+          speed={90}
           direction="forward"
           separator="✦"
-          curviness={16}
-          tilt={-2}
-          fontSize={20}
+          curviness={26}
+          tilt={-3}
+          fontSize={22}
           fontWeight={800}
           letterSpacing={2}
           uppercase
           ribbon
           ribbonColor="#ec4899"
-          ribbonWidth={40}
+          ribbonWidth={44}
           viewBoxWidth={1200}
-          viewBoxHeight={110}
+          viewBoxHeight={130}
           edgeFade={0.08}
           cross={false}
           crossAngle={16}
