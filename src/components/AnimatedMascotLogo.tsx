@@ -10,6 +10,12 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
   className = '',
   size = 'md',
 }) => {
+  const sizeClasses = {
+    sm: 'w-14 h-14 sm:w-16 sm:h-16',
+    md: 'w-16 h-16 sm:w-20 sm:h-20',
+    lg: 'w-20 h-20 sm:w-24 sm:h-24',
+  }[size];
+
   return (
     <Link
       to="/"
@@ -17,9 +23,9 @@ export const AnimatedMascotLogo: React.FC<AnimatedMascotLogoProps> = ({
       title="Stack'd - Keep it Stacked!"
     >
       {/* 
-        Center Mascot Visual Logo (Zero text, 100% transparent video/GIF loop)
+        Center Mascot Visual Logo (Zero text, 100% transparent video/GIF loop with 3s periodic break)
       */}
-      <div className="relative w-32 h-16 sm:w-40 sm:h-20 flex items-center justify-center overflow-visible">
+      <div className={`relative ${sizeClasses} flex items-center justify-center overflow-visible`}>
         <video
           autoPlay
           loop
